@@ -1,0 +1,18 @@
+1) Make sure that very docker container is up and running since 2 minute atlest
+	docker container ls
+2) SELinux policy should be in permissive mode
+3) if any container seem to be failed then by the logs of individual conainer using (docker container logs <container_id>)
+4) Check whether all the agent is in active state or not by using (/var/ossec/bin/agent_control -l) this command.
+5) if you need to add the agent using password authentication with wazuh-manager(echo "<custom_password>" > /var/ossec/etc/authd.pass)
+   /var/ossec/bin/agent-auth -m <manager_ip> -I any
+6) if filebeat/auditbeat cause problem or failed due to some reason then print the error output in standard output using(sudo filebeat -c /etc/filebeat/filebeat.yml -e)
+7) filebeat troubleshooting:-
+		systemctl status filebeat -l
+        filebeat test config
+        filebeat test output
+        filebeat -c /etc/filebeat/filebeat.yml -e
+8) autditbeat troubleshooting:-
+		systemctl status auditbeat -l
+        auditbeat test config
+        auditbeat test output
+        auditbeat -c /etc/auditbeat/auditbeat.yml -e

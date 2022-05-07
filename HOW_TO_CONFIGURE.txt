@@ -1,0 +1,18 @@
+1) sysctl -w vm.max_map_count=262144
+   vim /etc/sysctl.conf
+	vm.max_map_count=262144
+2) Docker and docker-compose Installation:
+	curl -sSL https://get.docker.com/ | sh
+    systemctl start docker
+    service docker start
+    curl -L "https://github.com/docker/compose/releases/download/1.28.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    docker-compose --version
+3) cd /opt
+   git clone https://github.com/wazuh/wazuh-docker.git -b v4.1.5 --depth=1
+   chcon -R system_u:object_r:admin_home_t:s0 wazuh-docker/
+   docker-compose -f generate-opendistro-certs.yml run --rm generator
+   bash ./production_cluster/kibana_ssl/generate-self-signed-cert.sh
+   bash ./production_cluster/nginx/ssl/generate-self-signed-cert.sh
+   docker-compose -f production-cluster.yml up -d
+3)
